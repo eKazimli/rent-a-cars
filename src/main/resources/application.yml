@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/rent-a-car
+    username: postgres
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+  application:
+    name: rent-a-car
+  jpa:
+    hibernate:
+      ddl-auto: update
