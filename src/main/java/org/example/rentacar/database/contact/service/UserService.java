@@ -8,7 +8,6 @@ import org.example.rentacar.database.contact.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,7 +21,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User updateUser(Long id, User user) {
+    public User updateUserName(Long id, User user) {
         var updateUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         updateUser.setUsername(user.getUsername());
         return userRepository.save(updateUser);
