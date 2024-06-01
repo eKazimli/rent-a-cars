@@ -1,4 +1,5 @@
 package org.example.rentacar.database.contact.service;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -7,6 +8,7 @@ import org.example.rentacar.database.contact.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +20,25 @@ public class UserService {
 
     public User createUser(User user) {
         return userRepository.save(user);
+    }
+
+    public User updateUser(Long id, User user) {
+        var updateUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        if (Objects.nonNull(updateUser)) {
+            updateUser.setUsername(user.getUsername());
+            userRepository.save(updateUser);
+            return updateUser;
+        }
+        return null;
+    }
+
+    public void deleteUser(Long id) {
+        var userToDelete = userRepository.
+                findById(id).
+                orElseThrow(() -> new RuntimeException("User type not found"));
+
+        userToDelete.setIsActive(false);
+        userRepository.save(userToDelete);
     }
 
     public User findUserById(Long id) {

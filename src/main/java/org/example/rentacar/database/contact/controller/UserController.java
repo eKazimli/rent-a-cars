@@ -19,10 +19,21 @@ public class UserController {
 
     UserService userService;
 
-    @PostMapping("createUser")
+    @PostMapping("/createUser")
     public ResponseEntity<?> createUser(@RequestBody User user) {
         User savedUser = userService.createUser(user);
         return ResponseEntity.ok(savedUser);
+    }
+
+    @PutMapping("/updateUser")
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
+        return ResponseEntity.ok(userService.updateUser(user.getId(), user));
+    }
+
+    @DeleteMapping("/deleteUser")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/id/{userId}")
