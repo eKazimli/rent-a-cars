@@ -25,12 +25,12 @@ public class UserController {
         return ResponseEntity.ok(savedUser);
     }
 
-    @PutMapping("/updateUser")
-    public ResponseEntity<?> updateUser(@RequestBody User user) {
-        return ResponseEntity.ok(userService.updateUser(user.getId(), user));
+    @PutMapping("/updateUser/{Id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User user) {
+        return ResponseEntity.ok(userService.updateUser(id, user));
     }
 
-    @DeleteMapping("/deleteUser")
+    @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.ok().build();
