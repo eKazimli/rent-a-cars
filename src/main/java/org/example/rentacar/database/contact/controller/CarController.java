@@ -3,10 +3,13 @@ package org.example.rentacar.database.contact.controller;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.example.rentacar.database.contact.entity.Car;
+import org.example.rentacar.database.contact.entity.cars.Car;
 import org.example.rentacar.database.contact.service.CarService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/cars")
@@ -27,9 +30,17 @@ public class CarController {
         return ResponseEntity.ok(carService.findCarById(carId));
     }
 
-    @GetMapping("/carModels/{carModels}")
-    public ResponseEntity<?> getCarByModel(@PathVariable String carModels) {
-        return ResponseEntity.ok(carService.findByCarModels(carModels));
+    @GetMapping("/{carBrand}/{carModels}")
+    public ResponseEntity<?> getCarByModel(@PathVariable String carModels, @PathVariable String carBrand) {
+        List<Car> cars = carService.findByCarBrandAndCarModels(carBrand, carModels);
+        return ResponseEntity.ok(cars);
     }
+
+    @GetMapping("/carCountByBrand")
+    public ResponseEntity<Map<String, Long>> getCarCountByBrand() {
+        Map<String, Long> carCountByBrand = carService.getCarCountByBrand();
+        return ResponseEntity.ok(carCountByBrand);
+    }
+
 
 }

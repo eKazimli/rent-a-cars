@@ -3,10 +3,12 @@ package org.example.rentacar.database.contact.controller;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.example.rentacar.database.contact.entity.User;
+import org.example.rentacar.database.contact.entity.users.User;
 import org.example.rentacar.database.contact.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -23,9 +25,20 @@ public class UserController {
         return ResponseEntity.ok(savedUser);
     }
 
-    @GetMapping("{userId}")
+    @GetMapping("/id/{userId}")
     public ResponseEntity<?> getUserById(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.findUserById(userId));
+    }
+
+    @GetMapping("/fin/{fin}")
+    public ResponseEntity<?> findByFin(@PathVariable String fin) {
+        return ResponseEntity.ok(userService.findByFin(fin));
+    }
+
+    @GetMapping("/AllUsersFin")
+    public ResponseEntity<List<String>> getAllUsersFin() {
+        List<String> userFin = userService.getAllUsersFin();
+        return ResponseEntity.ok(userFin);
     }
 
 }
