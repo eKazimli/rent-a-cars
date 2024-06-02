@@ -31,7 +31,6 @@ public class UserService {
         var userToDelete = userRepository.
                 findById(id).
                 orElseThrow(() -> new RuntimeException("User type not found"));
-
         userToDelete.setIsActive(false);
         userRepository.save(userToDelete);
     }

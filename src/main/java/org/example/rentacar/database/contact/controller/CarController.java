@@ -27,7 +27,13 @@ public class CarController {
 
     @PutMapping("/updateCarModelPrice/{carModels}")
     public ResponseEntity<?> updateCar(@PathVariable String carModels, @RequestBody Car car) {
-        return ResponseEntity.ok(carService.updateCar(carModels,car));
+        return ResponseEntity.ok(carService.updateCar(carModels, car));
+    }
+
+    @DeleteMapping("/deleteCarModel/{carModels}")
+    public ResponseEntity<?> deleteCarModel(@PathVariable String carModels) {
+        carService.deleteCar(carModels);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/id/{carId}")

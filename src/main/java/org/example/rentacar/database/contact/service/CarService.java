@@ -32,6 +32,13 @@ public class CarService {
         return carRepository.save(updatedCar);
     }
 
+    public void deleteCar(String carModels) {
+        var carsToDelete = carRepository.findByCarModels(carModels)
+                .orElseThrow(() -> new RuntimeException("Car model not found"));
+        carsToDelete.setIsAvailable(false);
+        carRepository.save(carsToDelete);
+    }
+
     public Car findCarById(Long id) {
         return carRepository.findById(id).orElseThrow(() -> new RuntimeException("Car not found"));
     }
