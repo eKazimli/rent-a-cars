@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.rentacar.database.contact.entity.cars.Car;
+import org.example.rentacar.database.contact.entity.cars.CarModels;
+import org.example.rentacar.database.contact.repository.CarModelDtlRepository;
 import org.example.rentacar.database.contact.repository.CarRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class CarService {
     CarRepository carRepository;
+    CarModelDtlRepository carModelDtlRepository;
 
     public Car createCar(Car car) {
         return carRepository.save(car);
@@ -26,8 +29,12 @@ public class CarService {
         if (carModels == null || carModels.isEmpty()) {
             throw new IllegalArgumentException("Car model cannot be null or empty");
         }
-        var updatedCar = carRepository.findByCarModels(carModels).
-                orElseThrow(() -> new RuntimeException("Car with model " + carModels + " not found"));
+        CarModels carModels1 = carModelDtlRepository.findCarModelsByCarModel(carModels).get();
+        Car car1 = carRepository.findByCarModels(carModels1).get();
+
+
+
+
         updatedCar.setCarPrice(car.getCarPrice());
         return carRepository.save(updatedCar);
     }
