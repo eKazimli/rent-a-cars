@@ -40,7 +40,7 @@ public class UserService {
     }
 
     public User findByFin(String fin) {
-        return userRepository.findByFin(fin).orElseThrow(() -> new RuntimeException("Car not found"));
+        return userRepository.findByFin(fin).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     public List<String> getAllUsersFin() {
