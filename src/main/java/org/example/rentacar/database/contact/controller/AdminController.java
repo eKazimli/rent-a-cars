@@ -32,7 +32,7 @@ public class AdminController {
         Optional<Admin> optionalAdmin = adminService.findByAdminName(adminName);
         if (optionalAdmin.isPresent()) {
             Admin adminLogin = optionalAdmin.get();
-            if (admin.getPassword().equals(password)) {
+            if (adminLogin.getPassword().equals(password)) {
                 // Spring Security kullanarak JWT oluşturulabilir.
                 return ResponseEntity.ok("Login successful");
             }
