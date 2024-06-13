@@ -23,25 +23,26 @@ public class CarService {
     ModelRepository modelRepository;
 
     public Car createCar(Car car) {
+        car.getModels().forEach(model -> model.setCar(car));
         return carRepository.save(car);
     }
 
-    public Model updateCarPrice(Model model, String carModel) {
-        Optional<Model> optionalUpdateModelPrice = modelRepository.findByCarModel(carModel);
+    public Model updateCarPrice(Model model,String carModel) {
+        Optional<Model> optionalUpdateModelPrice = modelRepository.findByCarModel( carModel);
         Model updateModelPrice = optionalUpdateModelPrice.orElseThrow(() -> new IllegalArgumentException("Car model not found: "));
         updateModelPrice.setPrice(model.getPrice());
         return modelRepository.save(updateModelPrice);
     }
 
-    public void deleteCar(String model) {
-        var carToDelete = modelRepository.findByCarModel(model)
+    public void deleteCar(String carModel) {
+        var carToDelete = modelRepository.findByCarModel(carModel)
                 .orElseThrow(() -> new RuntimeException("User type not found"));
         carToDelete.setIsActive(false);
         modelRepository.save(carToDelete);
     }
 
-    public List<Car> findByBrandAndCarModel(String brand, String model) {
-        return carRepository.findByBrandAndCarModel(brand, model);
+    public List<Car> findByBrandAndCarModel(String brand, String carModel) {
+        return carRepository.findByBrandAndCarModel(brand, carModel);
     }
 
     public List<String> getAllCarBrand() {

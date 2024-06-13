@@ -51,6 +51,6 @@ public class Model {
     Boolean isActive = true;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "carModel", referencedColumnName = "carModel", insertable = false, updatable = false)
+    @JoinColumn(name = "car_id")
     Car car;
 }

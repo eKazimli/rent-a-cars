@@ -38,8 +38,13 @@ public class Car {
 
     Boolean isActive = true;
 
-    @OneToMany(mappedBy = "carModel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Model> models;
+
+    public void addModel(Model model) {
+        models.add(model);
+        model.setCar(this);
+    }
 
 
 }

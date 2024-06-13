@@ -20,14 +20,14 @@ public class CarController {
     CarService carService;
 
     @PostMapping("/createCar")
-    public ResponseEntity<?> createCar(@RequestBody Car cars) {
-        Car savedCar = carService.createCar(cars);
+    public ResponseEntity<?> createCar(@RequestBody Car car) {
+        Car savedCar = carService.createCar(car);
         return ResponseEntity.ok(savedCar);
     }
 
     @PutMapping("/updateCarModelPrice/{carModel}")
     public ResponseEntity<?> updateCar(@PathVariable String carModel, @RequestBody Model model) {
-        return ResponseEntity.ok(carService.updateCarPrice(model, carModel));
+        return ResponseEntity.ok(carService.updateCarPrice(model,carModel));
     }
 
     @DeleteMapping("/deleteCar/{carModel}")
