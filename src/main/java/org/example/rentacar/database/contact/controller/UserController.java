@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -23,6 +24,24 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody User user) {
         User savedUser = userService.createUser(user);
         return ResponseEntity.ok(savedUser);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> userLogin(@RequestBody User user) {
+        String username = user.getUsername();
+        String password = user.getPassword();
+
+        Optional<User> optionalUser = userService.findByUsername(username);
+        if (optionalUser.isPresent()) {
+            User userLogin = optionalUser.get();
+            if (userLogin.getPassword().equals(password)) {
+                // Spring Security kullanarak JWT oluşturulabilir.
+                return ResponseEntity.ok("Login successful");
+            }
+        } else {
+            return ResponseEntity.ok("Login failed");
+        }
+        return ResponseEntity.ok(".:Failed:.");
     }
 
     @PutMapping("/updateUsername/{id}")
