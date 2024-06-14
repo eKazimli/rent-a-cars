@@ -13,14 +13,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/admin")
 @RequiredArgsConstructor()
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class AdminController {
 
     AdminService adminService;
-
-    public AdminController(AdminService adminService) {
-        this.adminService = adminService;
-    }
 
     @PostMapping("/createAdmin")
     public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
