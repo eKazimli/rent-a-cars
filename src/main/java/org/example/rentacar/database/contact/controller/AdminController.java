@@ -18,6 +18,10 @@ public class AdminController {
 
     AdminService adminService;
 
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
+    }
+
     @PostMapping("/createAdmin")
     public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
         Admin adminSave = adminService.create(admin);
