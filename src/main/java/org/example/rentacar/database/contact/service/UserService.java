@@ -36,6 +36,14 @@ public class UserService {
         userRepository.save(userToDelete);
     }
 
+    public void userActive(Long id) {
+        var userToActive = userRepository.
+                findById(id).
+                orElseThrow(() -> new RuntimeException("User type not found"));
+        userToActive.setIsActive(true);
+        userRepository.save(userToActive);
+    }
+
     public User findUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
