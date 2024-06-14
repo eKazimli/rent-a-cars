@@ -9,6 +9,7 @@ import org.example.rentacar.database.contact.repository.CarRepository;
 import org.example.rentacar.database.contact.repository.ModelRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,6 +24,9 @@ public class CarService {
     ModelRepository modelRepository;
 
     public Car createCar(Car car) {
+        if (car.getModels() == null) {
+            car.setModels(new ArrayList<>());
+        }
         car.getModels().forEach(model -> model.setCar(car));
         return carRepository.save(car);
     }
