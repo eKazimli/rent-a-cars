@@ -25,12 +25,7 @@ public class Car {
     Long id;
 
     @NotBlank(message = "Car-brand must not be empty")
-    @Column(unique = true)
     String brand;
-
-    @NotBlank(message = "Car-model must not be empty")
-    @Column(unique = true)
-    String carModel;
 
     @CreationTimestamp
     LocalDateTime createdAt;

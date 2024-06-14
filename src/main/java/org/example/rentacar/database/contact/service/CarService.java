@@ -31,22 +31,34 @@ public class CarService {
         return carRepository.save(car);
     }
 
-    public Model updateCarPrice(Model model,String carModel) {
-        Optional<Model> optionalUpdateModelPrice = modelRepository.findByCarModel( carModel);
+    public Model updateCarPrice(Model model, String carModel) {
+        Optional<Model> optionalUpdateModelPrice = modelRepository.findByCarModel(carModel);
         Model updateModelPrice = optionalUpdateModelPrice.orElseThrow(() -> new IllegalArgumentException("Car model not found: "));
         updateModelPrice.setPrice(model.getPrice());
+        updateModelPrice.setCurrency(model.getCurrency());
         return modelRepository.save(updateModelPrice);
     }
 
     public void deleteCar(String carModel) {
         var carToDelete = modelRepository.findByCarModel(carModel)
-                .orElseThrow(() -> new RuntimeException("User type not found"));
+                .orElseThrow(() -> new RuntimeException("Car type not found"));
         carToDelete.setIsActive(false);
         modelRepository.save(carToDelete);
     }
 
-    public List<Car> findByBrandAndCarModel(String brand, String carModel) {
-        return carRepository.findByBrandAndCarModel(brand, carModel);
+    public void carActive(String carModel) {
+        var carToActive = modelRepository.findByCarModel(carModel).
+                orElseThrow(() -> new RuntimeException("Car type not found"));
+        carToActive.setIsActive(true);
+        modelRepository.save(carToActive);
+    }
+
+    public Car findCarById(Long id) {
+        return carRepository.findById(id).orElseThrow(() -> new RuntimeException("Car not found"));
+    }
+
+    public Optional<Model> findByCarModel(String carModel) {
+        return modelRepository.findByCarModel(carModel);
     }
 
     public List<String> getAllCarBrand() {
