@@ -1,14 +1,18 @@
 package org.example.rentacar.database.contact.entity.users;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.example.rentacar.database.contact.entity.features.AreSelected;
+import org.example.rentacar.database.contact.entity.features.Like;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -48,4 +52,8 @@ public class User {
 
     Boolean isActive = true;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Like> likes;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<AreSelected> areSelected;
 }
