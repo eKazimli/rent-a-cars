@@ -23,4 +23,20 @@ public class AdminService {
     public Admin create(Admin admin) {
         return adminRepository.save(admin);
     }
+
+    public void deleteAdmin(Long id) {
+        var adminToDelete = adminRepository.
+                findById(id).
+                orElseThrow(() -> new RuntimeException("Admin type not found"));
+        adminToDelete.setIsActive(false);
+        adminRepository.save(adminToDelete);
+    }
+
+    public void adminActive(Long id) {
+        var adminToActive = adminRepository.
+                findById(id).
+                orElseThrow(() -> new RuntimeException("Admin type not found"));
+        adminToActive.setIsActive(true);
+        adminRepository.save(adminToActive);
+    }
 }

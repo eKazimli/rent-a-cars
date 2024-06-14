@@ -24,6 +24,18 @@ public class AdminController {
         return ResponseEntity.ok(adminSave);
     }
 
+    @PutMapping("/adminActive/{id}")
+    public ResponseEntity<?> userActive(@PathVariable Long id) {
+        adminService.adminActive(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/deleteAdmin/{id}")
+    public ResponseEntity<?> deleteAdmin(@PathVariable Long id) {
+        adminService.deleteAdmin(id);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> AdminLogin(@RequestBody Admin admin) {
         String adminName = admin.getAdminName();
