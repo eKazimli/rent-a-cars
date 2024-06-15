@@ -44,6 +44,19 @@ public class UserService {
         userRepository.save(userToActive);
     }
 
+    public void updateUserBalance(Long id, Double money) {
+        var user = userRepository.
+                findById(id).
+                orElseThrow(() -> new RuntimeException("User type not found"));
+        var balance = user.getBalance();
+        var newBalance = balance + money;
+        if (newBalance < 0) {
+            throw new IllegalArgumentException("Balance cannot be negative");
+        }
+        user.setBalance(newBalance);
+        userRepository.save(user);
+    }
+
     public User findUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }

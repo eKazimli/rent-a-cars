@@ -61,6 +61,12 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/updateBalance/{id}/{replaceBalance}")
+    public ResponseEntity<?> updateBalance(@PathVariable Long id, @PathVariable Double replaceBalance) {
+        userService.updateUserBalance(id,replaceBalance);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/id/{userId}")
     public ResponseEntity<?> getUserById(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.findUserById(userId));

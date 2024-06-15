@@ -1,6 +1,8 @@
 package org.example.rentacar.database.contact.entity.users;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,24 +27,30 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @NotBlank(message = "Cannot be empty")
     @Column(nullable = false, unique = true, length = 16)
     String username;
 
+    @NotBlank(message = "Cannot be empty")
     @Column(nullable = false, length = 10)
     String password;
 
+    @NotBlank(message = "Cannot be empty")
     @Column(nullable = false, length = 7)
     String fin;
 
+    @NotBlank(message = "Driver's license cannot be empty")
     @Column(nullable = false, length = 8)
     String driverLicense;
 
     @Column(nullable = false, length = 10)
     String phone;
 
+    @Email
+    String email;
+
     Double balance;
 
-    String email;
     LocalDate birthDate;
 
     @CreationTimestamp
