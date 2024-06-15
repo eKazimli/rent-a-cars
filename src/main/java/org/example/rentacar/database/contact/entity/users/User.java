@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.example.rentacar.database.contact.entity.features.AreSelected;
+import org.example.rentacar.database.contact.entity.features.Comment;
 import org.example.rentacar.database.contact.entity.features.Like;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -64,4 +65,6 @@ public class User {
     List<Like> likes;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<AreSelected> areSelected;
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    List<Comment> comments;
 }

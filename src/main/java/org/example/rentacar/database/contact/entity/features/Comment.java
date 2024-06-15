@@ -1,4 +1,4 @@
-package org.example.rentacar.database.contact.entity.users;
+package org.example.rentacar.database.contact.entity.features;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.example.rentacar.database.contact.entity.cars.Model;
+import org.example.rentacar.database.contact.entity.users.User;
 
 @Entity
 @Getter
@@ -27,5 +28,9 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "model_id")
     Model model;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
 
 }

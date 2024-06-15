@@ -8,4 +8,4 @@ spring:
     name: rent-a-car
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update

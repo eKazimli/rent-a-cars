@@ -4,9 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.example.rentacar.database.contact.entity.features.AreSelected;
 import org.example.rentacar.database.contact.entity.features.Like;
-import org.example.rentacar.database.contact.entity.users.Comment;
+import org.example.rentacar.database.contact.entity.features.Comment;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -60,8 +59,10 @@ public class Model {
 
     @OneToMany(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Like> likes;
-    @OneToMany(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<AreSelected> areSelected;
     @OneToMany(mappedBy = "model",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     List<Comment> comments;
+
+    public double countLikes() {
+        return this.likes != null ? this.likes.size() : 0;
+    }
 }

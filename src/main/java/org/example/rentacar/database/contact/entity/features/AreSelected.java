@@ -39,10 +39,6 @@ public class AreSelected {
     @JoinColumn(name = "user_id")
     User user;
 
-    @ManyToOne
-    @JoinColumn(name = "model_id")
-    Model model;
-
     @PrePersist
     protected void onCreate() {
         this.selected = true;
