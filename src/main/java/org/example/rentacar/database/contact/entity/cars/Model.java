@@ -62,7 +62,4 @@ public class Model {
     @OneToMany(mappedBy = "model",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     List<Comment> comments;
 
-    public double countLikes() {
-        return this.likes != null ? this.likes.size() : 0;
-    }
 }
