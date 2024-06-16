@@ -25,6 +25,9 @@ public class Comment {
     @Column(name = "comment_text")
     String commentText;
 
+    @Column(name = "is_comment")
+    Boolean isComment = true;
+
     @ManyToOne
     @JoinColumn(name = "model_id")
     Model model;
