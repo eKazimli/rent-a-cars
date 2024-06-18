@@ -10,27 +10,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/comment")
+@RequestMapping("v1/comments")
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class CommentController {
 
     CommentService commentService;
 
-    @PostMapping("/toComment/{userId}/{modelId}")
-    public void toComment(@PathVariable Long userId, @PathVariable Long modelId, @RequestBody Map<String, Object> requestBody) {
+    @PostMapping("/create/{userId}/{modelId}")
+    public void create(@PathVariable Long userId, @PathVariable Long modelId, @RequestBody Map<String, Object> requestBody) {
         String commentText = (String) requestBody.get("commentText");
-        commentService.toComment(userId, modelId, commentText);
+        commentService.create(userId, modelId, commentText);
     }
 
-    @PutMapping("/activeComment/{userId}/{modelId}")
-    public void activeComment(@PathVariable Long userId, @PathVariable Long modelId) {
-        commentService.activeComment(userId, modelId);
+    @PutMapping("/activate/{commentId}")
+    public void activate(@PathVariable Long commentId) {
+        commentService.activate(commentId);
     }
 
-    @PutMapping("/removeComment/{userId}/{modelId}")
-    public void removeComment(@PathVariable Long userId, @PathVariable Long modelId) {
-        commentService.removeComment(userId, modelId);
+    @PutMapping("/didactive/{commendId}")
+    public void didactive(@PathVariable Long commendId) {
+        commentService.didactive(commendId);
     }
 
 

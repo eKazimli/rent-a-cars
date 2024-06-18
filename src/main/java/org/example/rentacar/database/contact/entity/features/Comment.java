@@ -8,11 +8,13 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.example.rentacar.database.contact.entity.cars.Model;
 import org.example.rentacar.database.contact.entity.users.User;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "comments")
+@SQLRestriction("active = true")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Comment {
 

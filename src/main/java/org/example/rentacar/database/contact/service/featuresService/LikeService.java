@@ -22,7 +22,7 @@ public class LikeService {
     UserRepository userRepository;
     LikeRepository likeRepository;
 
-    public long countLikesByModel(Long modelId) {
+    public long totalLike(Long modelId) {
         Model model = modelRepository.findById(modelId)
                 .orElseThrow(() -> new EntityNotFoundException("No such model found"));
 
@@ -31,7 +31,7 @@ public class LikeService {
                 .count();
     }
 
-    public void toLike(Long userId, Long modelId) {
+    public void isLike(Long userId, Long modelId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         Model model = modelRepository.findById(modelId)
@@ -50,8 +50,8 @@ public class LikeService {
     }
 
 
-    public void removeLike(Long userId, Long modelId) {
-        Like like = likeRepository.findByUserIdAndModelId(userId, modelId);
+    public void didactive(Long likeId) {
+        Like like = likeRepository.findByLikeId(likeId);
         if (like != null) {
             like.setIsLiked(false);
             likeRepository.save(like);

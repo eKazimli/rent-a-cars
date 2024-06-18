@@ -7,6 +7,7 @@ import lombok.Data;
 import org.example.rentacar.database.contact.entity.features.Like;
 import org.example.rentacar.database.contact.entity.features.Comment;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,8 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "car_model")
+@Table(name = "car_models")
+@SQLRestriction("active = true")
 public class Model {
 
     @Id

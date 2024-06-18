@@ -21,7 +21,7 @@ public class CommentService {
     ModelRepository modelRepository;
     UserRepository userRepository;
 
-    public void toComment(Long userId, Long modelId, String commentText) {
+    public void create(Long userId, Long modelId, String commentText) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         Model model = modelRepository.findById(modelId)
@@ -47,8 +47,8 @@ public class CommentService {
 
     }
 
-    public Comment removeComment(Long userId, Long modelId) {
-        Comment comment = commentRepository.findByUserIdAndModelId(userId, modelId);
+    public Comment didactive(Long commendId) {
+        Comment comment = commentRepository.findByCommentId(commendId);
         if (comment != null) {
             comment.setIsComment(false);
             return commentRepository.save(comment);
@@ -58,8 +58,8 @@ public class CommentService {
 
     }
 
-    public Comment activeComment(Long userId, Long modelId) {
-        Comment comment = commentRepository.findByUserIdAndModelId(userId, modelId);
+    public Comment activate(Long commentId) {
+        Comment comment = commentRepository.findByCommentId(commentId);
         if (comment != null) {
             comment.setIsComment(true);
             return commentRepository.save(comment);

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("v1/admin")
 @RequiredArgsConstructor()
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class AdminController {

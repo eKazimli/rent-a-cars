@@ -7,15 +7,16 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.example.rentacar.database.contact.entity.cars.Model;
 import org.example.rentacar.database.contact.entity.users.User;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "areSelected")
+@Table(name = "areSelecteds")
+@SQLRestriction("active = true")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AreSelected {
 
