@@ -3,7 +3,8 @@ package org.example.rentacar.database.contact.controller;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.example.rentacar.database.contact.entity.users.User;
+import org.example.rentacar.database.contact.dto.LoginRequestDto;
+import org.example.rentacar.database.contact.dto.UserDto;
 import org.example.rentacar.database.contact.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,33 +21,30 @@ public class UserController {
 
     UserService userService;
 
-    @PostMapping("/createUser")
-    public ResponseEntity<?> createUser(@RequestBody User user) {
-        User savedUser = userService.createUser(user);
+    @PostMapping("/create")
+    public ResponseEntity<?> createUser(@RequestBody UserDto userDto) {
+        UserDto savedUser = userService.createUser(userDto);
         return ResponseEntity.ok(savedUser);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> userLogin(@RequestBody User user) {
-        String username = user.getUsername();
-        String password = user.getPassword();
-
-        Optional<User> optionalUser = userService.findByUsername(username);
+    public ResponseEntity<?> userLogin(@RequestBody LoginRequestDto loginRequestDto) {
+        Optional<UserDto> optionalUser = userService.findByUsername(loginRequestDto.getUsername());
         if (optionalUser.isPresent()) {
-            User userLogin = optionalUser.get();
-            if (userLogin.getPassword().equals(password)) {
-                // Spring Security kullanarak JWT oluşturulabilir.
+            UserDto userLogin = optionalUser.get();
+            if (userService.checkPassword(loginRequestDto.getPassword(),userLogin)) {
+                // Spring Security istifade ederek JWT
                 return ResponseEntity.ok("Login successful");
             }
         } else {
             return ResponseEntity.ok("Login failed");
         }
-        return ResponseEntity.ok(".:Failed:.");
+        return ResponseEntity.status(401).body(".:Failed:.");
     }
 
     @PutMapping("/updateUsername/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User user) {
-        return ResponseEntity.ok(userService.updateUserName(id, user));
+    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+        return ResponseEntity.ok(userService.updateUserName(id, userDto));
     }
 
     @PutMapping("/userActive/{id}")
@@ -56,24 +54,24 @@ public class UserController {
     }
 
     @DeleteMapping("/deleteUser/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/updateBalance/{id}/{replaceBalance}")
-    public ResponseEntity<?> updateBalance(@PathVariable Long id, @PathVariable Double replaceBalance) {
+    public ResponseEntity<Void> updateBalance(@PathVariable Long id, @PathVariable Double replaceBalance) {
         userService.updateUserBalance(id,replaceBalance);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/id/{userId}")
-    public ResponseEntity<?> getUserById(@PathVariable Long userId) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.findUserById(userId));
     }
 
     @GetMapping("/fin/{fin}")
-    public ResponseEntity<?> findByFin(@PathVariable String fin) {
+    public ResponseEntity<UserDto> findByFin(@PathVariable String fin) {
         return ResponseEntity.ok(userService.findByFin(fin));
     }
 

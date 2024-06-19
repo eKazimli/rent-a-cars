@@ -3,7 +3,9 @@ package org.example.rentacar.database.contact.service;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.example.rentacar.database.contact.dto.UserDto;
 import org.example.rentacar.database.contact.entity.users.User;
+import org.example.rentacar.database.contact.mapper.UserMapper;
 import org.example.rentacar.database.contact.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,38 +20,40 @@ public class UserService {
 
     UserRepository userRepository;
 
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public UserDto createUser(UserDto userDto) {
+        User user = UserMapper.toEntity(userDto);
+        User savedUser = userRepository.save(user);
+        return UserMapper.userDto(savedUser);
     }
 
-    public User updateUserName(Long id, User user) {
-        var updateUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        updateUser.setUsername(user.getUsername());
-        return userRepository.save(updateUser);
+    public UserDto updateUserName(Long id, UserDto userDto) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        user.setUsername(userDto.getUsername());
+        User updateUser = userRepository.save(user);
+        return UserMapper.userDto(updateUser);
     }
 
     public void deleteUser(Long id) {
-        var userToDelete = userRepository.
+        User user = userRepository.
                 findById(id).
                 orElseThrow(() -> new RuntimeException("User type not found"));
-        userToDelete.setIsActive(false);
-        userRepository.save(userToDelete);
+        user.setIsActive(false);
+        userRepository.save(user);
     }
 
     public void userActive(Long id) {
-        var userToActive = userRepository.
+        User user = userRepository.
                 findById(id).
                 orElseThrow(() -> new RuntimeException("User type not found"));
-        userToActive.setIsActive(true);
-        userRepository.save(userToActive);
+        user.setIsActive(true);
+        userRepository.save(user);
     }
 
     public void updateUserBalance(Long id, Double money) {
-        var user = userRepository.
+        User user = userRepository.
                 findById(id).
-                orElseThrow(() -> new RuntimeException("User type not found"));
-        var balance = user.getBalance();
-        var newBalance = balance + money;
+                orElseThrow(() -> new RuntimeException("User not found"));
+        var newBalance = user.getBalance() + money;
         if (newBalance < 0) {
             throw new IllegalArgumentException("Balance cannot be negative");
         }
@@ -57,16 +61,26 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User findUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public UserDto findUserById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return UserMapper.userDto(user);
     }
 
-    public Optional<User> findByUsername(String userName) {
-        return userRepository.findByUsername(userName);
+    public Optional<UserDto> findByUsername(String userName) {
+        return userRepository.findByUsername(userName)
+                .map(UserMapper::userDto);
     }
 
-    public User findByFin(String fin) {
-        return userRepository.findByFin(fin).orElseThrow(() -> new RuntimeException("User not found"));
+    public boolean checkPassword(String plainPassword, UserDto userDto) {
+        Optional<User> user = userRepository.findById(userDto.getId());
+        return user.isPresent() && user.get().getPassword().equals(plainPassword);
+    }
+
+    public UserDto findByFin(String fin) {
+        User user =  userRepository.findByFin(fin)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return UserMapper.userDto(user);
     }
 
     public List<String> getAllUsersFin() {
