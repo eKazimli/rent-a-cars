@@ -8,6 +8,7 @@ import org.example.rentacar.database.contact.service.AdminService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,15 +25,15 @@ public class AdminController {
         return ResponseEntity.ok(adminSave);
     }
 
-    @PutMapping("/adminActive/{id}")
+    @PutMapping("/Active/{id}")
     public ResponseEntity<?> userActive(@PathVariable Long id) {
-        adminService.adminActive(id);
+        adminService.Active(id);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/deleteAdmin/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteAdmin(@PathVariable Long id) {
-        adminService.deleteAdmin(id);
+        adminService.delete(id);
         return ResponseEntity.ok().build();
     }
 
@@ -52,5 +53,11 @@ public class AdminController {
             return ResponseEntity.ok("Login failed");
         }
         return ResponseEntity.ok(".:Failed:.");
+    }
+
+    @GetMapping("/AllUsersFin")
+    public ResponseEntity<List<String>> getAllUsersFin() {
+        List<String> userFin = adminService.getAllUsersFin();
+        return ResponseEntity.ok(userFin);
     }
 }

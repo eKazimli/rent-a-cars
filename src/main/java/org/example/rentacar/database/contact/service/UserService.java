@@ -9,9 +9,8 @@ import org.example.rentacar.database.contact.mapper.UserMapper;
 import org.example.rentacar.database.contact.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -83,10 +82,4 @@ public class UserService {
         return UserMapper.userDto(user);
     }
 
-    public List<String> getAllUsersFin() {
-        List<User> users = userRepository.findAll();
-        return users.stream()
-                .map(User::getFin)
-                .collect(Collectors.toList());
-    }
 }

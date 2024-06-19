@@ -39,10 +39,4 @@ public class Car {
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Model> models = new ArrayList<>();
 
-    public void addModel(Model model) {
-        models.add(model);
-        model.setCar(this);
-    }
-
-
 }

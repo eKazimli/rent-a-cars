@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@SQLRestriction("active = true")
 @Table(name = "likes")
+@SQLRestriction("active = true")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Like {
 

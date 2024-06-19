@@ -11,6 +11,7 @@ import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -63,5 +64,7 @@ public class Model {
     List<Like> likes;
     @OneToMany(mappedBy = "model",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     List<Comment> comments;
+    @OneToMany(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<UserModels> userModels = new ArrayList<>();
 
 }

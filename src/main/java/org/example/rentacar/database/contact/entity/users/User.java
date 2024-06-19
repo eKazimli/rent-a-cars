@@ -7,20 +7,24 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.example.rentacar.database.contact.entity.cars.UserModels;
 import org.example.rentacar.database.contact.entity.features.AreSelected;
 import org.example.rentacar.database.contact.entity.features.Comment;
 import org.example.rentacar.database.contact.entity.features.Like;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "users")
+@SQLRestriction("active = true")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
@@ -67,4 +71,6 @@ public class User {
     List<AreSelected> areSelected;
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     List<Comment> comments;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<UserModels> userModels = new ArrayList<>();
 }

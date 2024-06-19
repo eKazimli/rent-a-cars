@@ -9,9 +9,7 @@ import org.example.rentacar.database.contact.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
-
 
 @RestController
 @RequestMapping("v1/users")
@@ -32,7 +30,7 @@ public class UserController {
         Optional<UserDto> optionalUser = userService.findByUsername(loginRequestDto.getUsername());
         if (optionalUser.isPresent()) {
             UserDto userLogin = optionalUser.get();
-            if (userService.checkPassword(loginRequestDto.getPassword(),userLogin)) {
+            if (userService.checkPassword(loginRequestDto.getPassword(), userLogin)) {
                 // Spring Security istifade ederek JWT
                 return ResponseEntity.ok("Login successful");
             }
@@ -61,7 +59,7 @@ public class UserController {
 
     @PutMapping("/updateBalance/{id}/{replaceBalance}")
     public ResponseEntity<Void> updateBalance(@PathVariable Long id, @PathVariable Double replaceBalance) {
-        userService.updateUserBalance(id,replaceBalance);
+        userService.updateUserBalance(id, replaceBalance);
         return ResponseEntity.ok().build();
     }
 
@@ -73,12 +71,6 @@ public class UserController {
     @GetMapping("/fin/{fin}")
     public ResponseEntity<UserDto> findByFin(@PathVariable String fin) {
         return ResponseEntity.ok(userService.findByFin(fin));
-    }
-
-    @GetMapping("/AllUsersFin")
-    public ResponseEntity<List<String>> getAllUsersFin() {
-        List<String> userFin = userService.getAllUsersFin();
-        return ResponseEntity.ok(userFin);
     }
 
 }
