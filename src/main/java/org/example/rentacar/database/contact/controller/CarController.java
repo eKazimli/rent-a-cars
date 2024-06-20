@@ -30,13 +30,13 @@ public class CarController {
         return ResponseEntity.ok(carService.updateCarPrice(model,carModel));
     }
 
-    @DeleteMapping("/deleteCar/{carModel}")
+    @DeleteMapping("/delete/{carModel}")
     public ResponseEntity<?> deleteCar(@PathVariable String carModel) {
         carService.deleteCar(carModel);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/Active/{carModel}")
+    @PutMapping("/active/{carModel}")
     public ResponseEntity<?> carActive(@PathVariable String carModel) {
         carService.carActive(carModel);
         return ResponseEntity.ok().build();
@@ -52,7 +52,7 @@ public class CarController {
         return ResponseEntity.ok(carService.findCarById(carId));
     }
 
-    @GetMapping("/AllCarBrand")
+    @GetMapping("/allCarBrand")
     public ResponseEntity<List<String>> getAllCarBrand() {
         List<String> carBrand = carService.getAllCarBrand();
         return ResponseEntity.ok(carBrand);

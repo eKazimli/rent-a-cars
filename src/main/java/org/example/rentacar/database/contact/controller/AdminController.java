@@ -25,7 +25,7 @@ public class AdminController {
         return ResponseEntity.ok(adminSave);
     }
 
-    @PutMapping("/Active/{id}")
+    @PutMapping("/active/{id}")
     public ResponseEntity<?> userActive(@PathVariable Long id) {
         adminService.Active(id);
         return ResponseEntity.ok().build();
@@ -35,6 +35,12 @@ public class AdminController {
     public ResponseEntity<?> deleteAdmin(@PathVariable Long id) {
         adminService.delete(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/allUsersFin")
+    public ResponseEntity<List<String>> getAllUsersFin() {
+        List<String> userFin = adminService.getAllUsersFin();
+        return ResponseEntity.ok(userFin);
     }
 
     @PostMapping("/login")
@@ -55,9 +61,4 @@ public class AdminController {
         return ResponseEntity.ok(".:Failed:.");
     }
 
-    @GetMapping("/AllUsersFin")
-    public ResponseEntity<List<String>> getAllUsersFin() {
-        List<String> userFin = adminService.getAllUsersFin();
-        return ResponseEntity.ok(userFin);
-    }
 }

@@ -45,7 +45,7 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUserName(id, userDto));
     }
 
-    @PutMapping("/Active/{id}")
+    @PutMapping("/active/{id}")
     public ResponseEntity<?> userActive(@PathVariable Long id) {
         userService.userActive(id);
         return ResponseEntity.ok().build();
@@ -68,7 +68,7 @@ public class UserController {
         return ResponseEntity.ok(userService.findUserById(userId));
     }
 
-    @GetMapping("/fin/{fin}")
+    @GetMapping("/{fin}")
     public ResponseEntity<UserDto> findByFin(@PathVariable String fin) {
         return ResponseEntity.ok(userService.findByFin(fin));
     }
