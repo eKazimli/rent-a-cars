@@ -45,13 +45,13 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUserName(id, userDto));
     }
 
-    @PutMapping("/userActive/{id}")
+    @PutMapping("/Active/{id}")
     public ResponseEntity<?> userActive(@PathVariable Long id) {
         userService.userActive(id);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/deleteUser/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.ok().build();
@@ -63,7 +63,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/id/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.findUserById(userId));
     }

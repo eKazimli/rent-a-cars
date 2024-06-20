@@ -19,7 +19,7 @@ public class CarController {
 
     CarService carService;
 
-    @PostMapping("/createCar")
+    @PostMapping("/create")
     public ResponseEntity<?> createCar(@RequestBody Car car) {
         Car savedCar = carService.createCar(car);
         return ResponseEntity.ok(savedCar);
@@ -36,7 +36,7 @@ public class CarController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/carActive/{carModel}")
+    @PutMapping("/Active/{carModel}")
     public ResponseEntity<?> carActive(@PathVariable String carModel) {
         carService.carActive(carModel);
         return ResponseEntity.ok().build();
@@ -47,7 +47,7 @@ public class CarController {
         return ResponseEntity.ok(carService.findByCarModel(carModel));
     }
 
-    @GetMapping("/id/{carId}")
+    @GetMapping("/{carId}")
     public ResponseEntity<?> getCarById(@PathVariable Long carId) {
         return ResponseEntity.ok(carService.findCarById(carId));
     }

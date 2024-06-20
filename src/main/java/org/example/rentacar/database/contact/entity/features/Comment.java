@@ -20,7 +20,7 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
+    @Column(name = "id")
     Long commentId;
 
     @NotBlank(message = "Comment text must not be empty")

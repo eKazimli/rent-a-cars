@@ -4,7 +4,11 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.rentacar.database.contact.service.featuresService.LikeService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("v1/likes")
@@ -24,9 +28,15 @@ public class LikeController {
         likeService.isLike(userId, modelId);
     }
 
-    @PutMapping("/removeLike/{likeId}")
+    @PutMapping("/remove/{likeId}")
     public void didactive(@PathVariable Long likeId) {
         likeService.didactive(likeId);
+    }
+
+    @GetMapping("/userAllLikes/{userId}")
+    public ResponseEntity<List<String>> AllLikesOfTheUser(@PathVariable Long userId) {
+        List<String> allLikesOfTheUser = likeService.allLikesOfTheUser(userId);
+        return new ResponseEntity<>(allLikesOfTheUser, HttpStatus.OK);
     }
 
 }

@@ -21,7 +21,7 @@ public class Like {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "like_id")
+    @Column(name = "id")
     Long likeId;
 
     @Column(name = "is_liked")
@@ -38,9 +38,4 @@ public class Like {
     @JoinColumn(name = "model_id")
     Model model;
 
-    @PrePersist
-    protected void onCreate() {
-        this.isLiked = true;
-        this.created = LocalDateTime.now();
-    }
 }

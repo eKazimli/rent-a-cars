@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.example.rentacar.database.contact.entity.cars.Model;
 import org.example.rentacar.database.contact.entity.users.User;
 import org.hibernate.annotations.SQLRestriction;
 
@@ -22,12 +23,8 @@ public class AreSelected {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "selected_id")
+    @Column(name = "id")
     Long selectedId;
-
-    @NotBlank(message = "Car-model must not be empty")
-    @Column(name = "car_model", unique = true)
-    String carModel;
 
     @NotBlank(message = "Select must not be empty")
     Boolean selected = true;
@@ -40,9 +37,8 @@ public class AreSelected {
     @JoinColumn(name = "user_id")
     User user;
 
-    @PrePersist
-    protected void onCreate() {
-        this.selected = true;
-        this.created = LocalDateTime.now();
-    }
+    @ManyToOne
+    @JoinColumn(name = "model_id")
+    Model model;
+
 }

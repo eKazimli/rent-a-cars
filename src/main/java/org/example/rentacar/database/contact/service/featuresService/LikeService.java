@@ -12,6 +12,9 @@ import org.example.rentacar.database.contact.repository.UserRepository;
 import org.example.rentacar.database.contact.repository.featuresRepository.LikeRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +24,17 @@ public class LikeService {
     ModelRepository modelRepository;
     UserRepository userRepository;
     LikeRepository likeRepository;
+
+    public List<String> allLikesOfTheUser(Long userId) {
+
+        List<Like> likeModels = likeRepository.findByUserId(userId);
+        if (likeModels.isEmpty()) {
+            throw new EntityNotFoundException("User did not like any cars");
+        }
+        return likeModels.stream()
+                .map(like -> like.getModel().getCarModel())
+                .collect(Collectors.toList());
+    }
 
     public long totalLike(Long modelId) {
         Model model = modelRepository.findById(modelId)
