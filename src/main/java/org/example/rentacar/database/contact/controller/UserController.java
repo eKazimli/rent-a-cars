@@ -52,13 +52,13 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/updateBalance/{id}/{replaceBalance}")
-    public ResponseEntity<Void> updateBalance(@PathVariable Long id, @PathVariable Double replaceBalance) {
+    public ResponseEntity<?> updateBalance(@PathVariable Long id, @PathVariable Double replaceBalance) {
         userService.updateUserBalance(id, replaceBalance);
         return ResponseEntity.ok().build();
     }
