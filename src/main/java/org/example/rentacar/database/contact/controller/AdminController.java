@@ -3,6 +3,7 @@ package org.example.rentacar.database.contact.controller;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.example.rentacar.database.contact.dto.AdminDto;
 import org.example.rentacar.database.contact.entity.users.Admin;
 import org.example.rentacar.database.contact.service.AdminService;
 import org.example.rentacar.database.contact.service.CarService;
@@ -25,9 +26,9 @@ public class AdminController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
-        Admin adminSave = adminService.create(admin);
-        return ResponseEntity.ok(adminSave);
+    public ResponseEntity<?> createAdmin(@RequestBody AdminDto adminDto) {
+        Admin savedAdmin = adminService.create(adminDto);
+        return ResponseEntity.ok(savedAdmin);
     }
 
     @PutMapping("/active/{id}")
@@ -62,7 +63,7 @@ public class AdminController {
 
     @PostMapping("/login")
     public ResponseEntity<?> AdminLogin(@RequestBody Admin admin) {
-        String adminName = admin.getAdminName();
+        String adminName = admin.getUsername();
         String password = admin.getPassword();
 
         Optional<Admin> optionalAdmin = adminService.findByAdminName(adminName);

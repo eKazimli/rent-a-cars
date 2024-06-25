@@ -3,10 +3,13 @@ package org.example.rentacar.database.contact.service;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.example.rentacar.database.contact.dto.AdminDto;
 import org.example.rentacar.database.contact.entity.users.Admin;
 import org.example.rentacar.database.contact.entity.users.User;
 import org.example.rentacar.database.contact.repository.AdminRepository;
 import org.example.rentacar.database.contact.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,12 +23,16 @@ public class AdminService {
 
     AdminRepository adminRepository;
     UserRepository userRepository;
+    PasswordEncoder passwordEncoder;
 
     public Optional<Admin> findByAdminName(String adminName) {
-        return adminRepository.findByAdminName(adminName);
+        return adminRepository.findByUsername(adminName);
     }
 
-    public Admin create(Admin admin) {
+    public Admin create(AdminDto adminDto) {
+        Admin admin = new Admin();
+        admin.setUsername(adminDto.getUsername());
+        admin.setPassword(passwordEncoder.encode(adminDto.getPassword()));
         return adminRepository.save(admin);
     }
 

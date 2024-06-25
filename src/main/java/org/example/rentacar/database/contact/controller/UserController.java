@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.rentacar.database.contact.dto.LoginRequestDto;
 import org.example.rentacar.database.contact.dto.UserDto;
+import org.example.rentacar.database.contact.entity.users.User;
 import org.example.rentacar.database.contact.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class UserController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody UserDto userDto) {
-        UserDto savedUser = userService.createUser(userDto);
+        User savedUser = userService.create(userDto);
         return ResponseEntity.ok(savedUser);
     }
 

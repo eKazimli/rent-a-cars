@@ -24,7 +24,7 @@ public class Admin {
     Long id;
 
     @Column(nullable = false)
-    String adminName;
+    String username;
 
     @Column(nullable = false)
     String password;

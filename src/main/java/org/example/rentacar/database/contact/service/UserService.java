@@ -7,6 +7,8 @@ import org.example.rentacar.database.contact.dto.UserDto;
 import org.example.rentacar.database.contact.entity.users.User;
 import org.example.rentacar.database.contact.mapper.UserMapper;
 import org.example.rentacar.database.contact.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,11 +20,13 @@ import java.util.Optional;
 public class UserService {
 
     UserRepository userRepository;
+    PasswordEncoder passwordEncoder;
 
-    public UserDto createUser(UserDto userDto) {
-        User user = UserMapper.toEntity(userDto);
-        User savedUser = userRepository.save(user);
-        return UserMapper.userDto(savedUser);
+    public User create(UserDto userDto) {
+        User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        return userRepository.save(user);
     }
 
     public UserDto updateUserName(Long id, UserDto userDto) {
