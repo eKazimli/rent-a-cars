@@ -8,7 +8,6 @@ import org.example.rentacar.database.contact.entity.users.Admin;
 import org.example.rentacar.database.contact.entity.users.User;
 import org.example.rentacar.database.contact.repository.AdminRepository;
 import org.example.rentacar.database.contact.repository.UserRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
