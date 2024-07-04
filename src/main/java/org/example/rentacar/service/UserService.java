@@ -50,24 +50,32 @@ public class UserService {
         User user = userRepository.
                 findById(id).
                 orElseThrow(() -> new RuntimeException("User not found"));
-        var newBalance = user.getBalance() + money;
-        if (newBalance < 0) {
-            throw new IllegalArgumentException("Balance cannot be negative");
+        if (user.getIsActive()) {
+            var newBalance = user.getBalance() + money;
+            if (newBalance < 0) {
+                throw new IllegalArgumentException("Balance cannot be negative");
+            }
+            user.setBalance(newBalance);
+            userRepository.save(user);
+        } else {
+            throw new IllegalArgumentException("User is not active");
         }
-        user.setBalance(newBalance);
-        userRepository.save(user);
     }
 
     public void reduceBalance(Long id, Double money) {
         User user = userRepository.
                 findById(id).
                 orElseThrow(() -> new RuntimeException("User not found"));
-        var newBalance = user.getBalance() - money;
-        if (newBalance < 0) {
-            throw new IllegalArgumentException("Balance cannot be negative");
+        if (user.getIsActive()) {
+            var newBalance = user.getBalance() - money;
+            if (newBalance < 0) {
+                throw new IllegalArgumentException("Balance cannot be negative");
+            }
+            user.setBalance(newBalance);
+            userRepository.save(user);
+        } else {
+            throw new IllegalArgumentException("User is not active");
         }
-        user.setBalance(newBalance);
-        userRepository.save(user);
     }
 
     public UserDto findUserById(Long id) {

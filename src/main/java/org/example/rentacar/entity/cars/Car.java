@@ -18,7 +18,6 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "cars")
-@SQLRestriction("is_active = true")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Car {
 

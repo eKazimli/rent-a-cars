@@ -12,7 +12,6 @@ import org.example.rentacar.entity.features.AreSelected;
 import org.example.rentacar.entity.features.Comment;
 import org.example.rentacar.entity.features.Like;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
@@ -24,7 +23,6 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "users")
-@SQLRestriction("is_active = true")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
@@ -54,7 +52,7 @@ public class User {
     @Email
     String email;
 
-    Double balance;
+    Double balance = 0.0;
 
     LocalDate birthDate;
 
@@ -69,7 +67,7 @@ public class User {
     List<Like> likes;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<AreSelected> areSelected;
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Comment> comments;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<UserModels> userModels = new ArrayList<>();

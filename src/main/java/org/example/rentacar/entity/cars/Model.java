@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "car_models")
-@SQLRestriction("is_active = true")
 public class Model {
 
     @Id
@@ -62,7 +61,7 @@ public class Model {
 
     @OneToMany(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Like> likes;
-    @OneToMany(mappedBy = "model",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Comment> comments;
     @OneToMany(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<UserModels> userModels = new ArrayList<>();
