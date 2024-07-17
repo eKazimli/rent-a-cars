@@ -20,9 +20,6 @@ import java.util.List;
 public class AdminController {
 
     AdminService adminService;
-    UserService userService;
-    CarService carService;
-
 
     @PostMapping("/create")
     public ResponseEntity<?> createAdmin(@RequestBody AdminDto adminDto) {
@@ -39,18 +36,6 @@ public class AdminController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteAdmin(@PathVariable Long id) {
         adminService.delete(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("/deleteUser/{userId}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
-        userService.deleteUser(userId);
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("/deleteCarModel/{carModel}")
-    public ResponseEntity<?> deleteCar(@PathVariable String carModel) {
-        carService.deleteCar(carModel);
         return ResponseEntity.ok().build();
     }
 
