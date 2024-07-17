@@ -17,6 +17,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "car_models")
+@SQLRestriction("isActive = true")
 public class Model {
 
     @Id

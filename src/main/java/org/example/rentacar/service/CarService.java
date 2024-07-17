@@ -66,4 +66,11 @@ public class CarService {
                 .map(Car::getBrand)
                 .collect(Collectors.toList());
     }
+
+    public List<String> getAllCarModel() {
+        List<Model> cars = modelRepository.findAll();
+        return cars.stream()
+                .map(Model::getCarModel)
+                .collect(Collectors.toList());
+    }
 }

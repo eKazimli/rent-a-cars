@@ -58,4 +58,10 @@ public class CarController {
         return ResponseEntity.ok(carBrand);
     }
 
+    @GetMapping("/allCarModel")
+    public ResponseEntity<List<String>> getAllCarModel() {
+        List<String> carModel = carService.getAllCarModel();
+        return ResponseEntity.ok(carModel);
+    }
+
 }

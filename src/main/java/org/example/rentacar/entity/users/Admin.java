@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Table(name = "admin")
-@SQLRestriction("is_active = true")
+@SQLRestriction("isActive = true")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Admin {
 
