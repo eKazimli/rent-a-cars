@@ -23,7 +23,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/v1/users/create").permitAll()
                         .requestMatchers("v1/users/delete").authenticated()
-                        .requestMatchers("/v1/admin/create").hasRole("ADMIN")
+                        .requestMatchers("/v1/admin/create").authenticated()
                         .requestMatchers("/v1/admin/delete/**").hasRole("ADMIN")
                         .requestMatchers("/v1/users/**").authenticated()
                         .requestMatchers("/v1/admin/**").authenticated()
