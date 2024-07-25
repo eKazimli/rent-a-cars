@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.rentacar.dto.AdminDto;
 import org.example.rentacar.entity.users.Admin;
+import org.example.rentacar.entity.users.User;
 import org.example.rentacar.service.AdminService;
 import org.example.rentacar.service.CarService;
 import org.example.rentacar.service.UserService;
@@ -23,8 +24,8 @@ public class AdminController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createAdmin(@RequestBody AdminDto adminDto) {
-        Admin savedAdmin = adminService.create(adminDto);
-        return ResponseEntity.ok(savedAdmin);
+        adminService.create(adminDto);
+        return ResponseEntity.ok("Admin created successfully");
     }
 
     @PutMapping("/active/{id}")

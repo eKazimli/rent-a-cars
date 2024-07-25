@@ -31,11 +31,11 @@ public class User {
     Long id;
 
     @NotBlank(message = "Cannot be empty")
-    @Column(nullable = false, unique = true, length = 16)
+    @Column(nullable = false, unique = true)
     String username;
 
     @NotBlank(message = "Cannot be empty")
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false)
     String password;
 
     @NotBlank(message = "Cannot be empty")

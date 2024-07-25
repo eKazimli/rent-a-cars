@@ -21,8 +21,8 @@ public class CarController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createCar(@RequestBody Car car) {
-        Car savedCar = carService.createCar(car);
-        return ResponseEntity.ok(savedCar);
+        carService.createCar(car);
+        return ResponseEntity.ok("Car created successfully");
     }
 
     @PutMapping("/updateCarModelPrice/{carModel}")

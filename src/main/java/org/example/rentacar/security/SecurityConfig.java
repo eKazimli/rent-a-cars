@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -22,7 +21,12 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/users/create", "/admins/create").hasRole("ADMIN")
+                        .requestMatchers("/v1/users/create").permitAll()
+                        .requestMatchers("v1/users/delete").authenticated()
+                        .requestMatchers("/v1/admin/create").hasRole("ADMIN")
+                        .requestMatchers("/v1/admin/delete/**").hasRole("ADMIN")
+                        .requestMatchers("/v1/users/**").authenticated()
+                        .requestMatchers("/v1/admin/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -49,11 +53,10 @@ public class SecurityConfig {
 
         UserDetails admin = User.builder()
                 .username("admin")
-                .password(passwordEncoder().encode("admin"))
+                .password(passwordEncoder().encode("password"))
                 .roles("ADMIN")
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
     }
-
 }
