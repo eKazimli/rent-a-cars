@@ -27,18 +27,12 @@ public class UserService {
         return UserMapper.userDto(updateUser);
     }
 
-    public void deleteUser(Long id) {
-        User user = userRepository.
-                findById(id).
-                orElseThrow(() -> new RuntimeException("User type not found"));
+    public void deleteUser(User user) {
         user.setIsActive(false);
         userRepository.save(user);
     }
 
-    public void userActive(Long id) {
-        User user = userRepository.
-                findById(id).
-                orElseThrow(() -> new RuntimeException("User type not found"));
+    public void userActive(User user) {
         user.setIsActive(true);
         userRepository.save(user);
     }

@@ -24,19 +24,19 @@ public class UserController {
     }
 
     @PutMapping("/updateUsername/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
         return ResponseEntity.ok(userService.updateUserName(id, userDto));
     }
 
-    @PutMapping("/active/{id}")
-    public ResponseEntity<?> userActive(@PathVariable Long id) {
-        userService.userActive(id);
+    @PutMapping("/active")
+    public ResponseEntity<?> userActive(@RequestBody User user) {
+        userService.userActive(user);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteUser(@RequestBody User user) {
+        userService.deleteUser(user);
         return ResponseEntity.ok().build();
     }
 
