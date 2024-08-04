@@ -8,5 +8,5 @@ spring:
     name: rent-a-car
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
